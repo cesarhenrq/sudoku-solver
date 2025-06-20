@@ -47,7 +47,12 @@ module.exports = function (app) {
 
     const grid = solver.puzzleToGrid(puzzle);
 
+    if (solver.isAlreadyPlaced(grid, mapRowToNumber[row], col - 1, value)) {
+      return res.json({ valid: true, conflicts: [] });
+    }
+
     const conflicts = [];
+
     if (!solver.checkRowPlacement(grid, mapRowToNumber[row], col - 1, value)) {
       conflicts.push("row");
     }
@@ -75,6 +80,10 @@ module.exports = function (app) {
 
     if (error) {
       return res.json({ error });
+    }
+
+    if (solution === null) {
+      return res.json({ error: "Puzzle cannot be solved" });
     }
 
     return res.json({ solution });
