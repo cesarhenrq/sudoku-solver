@@ -17,8 +17,9 @@ module.exports = function (app) {
       return res.json({ error });
     }
 
-    const row = coordinate.split("")[0];
-    const col = coordinate.split("")[1];
+    let row = coordinate.split("");
+    const col = row.pop();
+    row = row.join("");
 
     const mapRowToNumber = {
       A: 0,
@@ -32,7 +33,7 @@ module.exports = function (app) {
       I: 8,
     };
 
-    if (col < 1 || col > 9) {
+    if (Number(col) < 1 || Number(col) > 9) {
       return res.json({ error: "Invalid coordinate" });
     }
 

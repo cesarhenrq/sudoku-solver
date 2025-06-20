@@ -142,4 +142,48 @@ suite("Functional Tests", () => {
         done();
       });
   });
+
+  test("Check a puzzle placement with invalid characters", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: "0" })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "Invalid value");
+        done();
+      });
+  });
+
+  test("Check a puzzle placement with incorrect length", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({
+        puzzle:
+          "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.372.",
+        coordinate: "A2",
+        value: 2,
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(
+          res.body.error,
+          "Expected puzzle to be 81 characters long"
+        );
+        done();
+      });
+  });
+
+  test("Check a puzzle placement with invalid placement coordinate", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A10", value: 2 })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "Invalid coordinate");
+        done();
+      });
+  });
 });
