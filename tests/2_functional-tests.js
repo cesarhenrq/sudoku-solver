@@ -130,4 +130,16 @@ suite("Functional Tests", () => {
         done();
       });
   });
+
+  test("Check a puzzle placement with missing required fields", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0] })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "Required field(s) missing");
+        done();
+      });
+  });
 });
