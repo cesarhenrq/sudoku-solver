@@ -104,4 +104,30 @@ suite("Functional Tests", () => {
         done();
       });
   });
+
+  test("Check a puzzle placement with multiple placement conflicts", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: 2 })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.valid, false);
+        assert.deepEqual(res.body.conflicts, ["row", "column", "region"]);
+        done();
+      });
+  });
+
+  test("Check a puzzle placement with all placement conflicts", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: 2 })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.valid, false);
+        assert.deepEqual(res.body.conflicts, ["row", "column", "region"]);
+        done();
+      });
+  });
 });
