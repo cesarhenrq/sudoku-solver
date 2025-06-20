@@ -64,20 +64,20 @@ suite("Functional Tests", () => {
       });
   });
 
-  /* test("Solve a puzzle that cannot be solved", (done) => {
+  test("Solve a puzzle that cannot be solved", (done) => {
     chai
       .request(server)
       .post("/api/solve")
       .send({
         puzzle:
-          "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.372.",
+          "53..7....6..195....98....6.8...6...34..8..3..17...2...6.6....28....419..5....8..7",
       })
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.body.error, "Puzzle cannot be solved");
         done();
       });
-  }); */
+  });
 
   test("Check a puzzle placement with all fields", (done) => {
     chai
