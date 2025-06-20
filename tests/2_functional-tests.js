@@ -63,4 +63,32 @@ suite("Functional Tests", () => {
         done();
       });
   });
+
+  /* test("Solve a puzzle that cannot be solved", (done) => {
+    chai
+      .request(server)
+      .post("/api/solve")
+      .send({
+        puzzle:
+          "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.372.",
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "Puzzle cannot be solved");
+        done();
+      });
+  }); */
+
+  test("Check a puzzle placement with all fields", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: 3 })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.valid, true);
+        assert.deepEqual(res.body.conflicts, []);
+        done();
+      });
+  });
 });
