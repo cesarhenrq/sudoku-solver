@@ -102,6 +102,10 @@ class SudokuSolver {
   gridToString(grid) {
     return grid.map((row) => row.join("")).join("");
   }
+
+  isAlreadyPlaced(grid, row, col, num) {
+    return grid[row][col] === num.toString();
+  }
 }
 
 module.exports = SudokuSolver;
