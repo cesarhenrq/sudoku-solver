@@ -147,10 +147,15 @@ suite("Functional Tests", () => {
     chai
       .request(server)
       .post("/api/check")
-      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: "0" })
+      .send({
+        puzzle:
+          "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926c14.37.",
+        coordinate: "A2",
+        value: "2",
+      })
       .end((err, res) => {
         assert.equal(res.status, 200);
-        assert.equal(res.body.error, "Invalid value");
+        assert.equal(res.body.error, "Invalid characters in puzzle");
         done();
       });
   });
@@ -183,6 +188,18 @@ suite("Functional Tests", () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.body.error, "Invalid coordinate");
+        done();
+      });
+  });
+
+  test("Check a puzzle placement with invalid placement value", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: 10 })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.error, "Invalid value");
         done();
       });
   });
