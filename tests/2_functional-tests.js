@@ -87,7 +87,7 @@ suite("Functional Tests", () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.body.valid, true);
-        assert.deepEqual(res.body.conflicts, []);
+        assert.deepEqual(res.body.conflict, []);
         done();
       });
   });
@@ -100,7 +100,7 @@ suite("Functional Tests", () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.body.valid, false);
-        assert.deepEqual(res.body.conflicts, ["row"]);
+        assert.deepEqual(res.body.conflict, ["row"]);
         done();
       });
   });
@@ -113,7 +113,7 @@ suite("Functional Tests", () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.body.valid, false);
-        assert.deepEqual(res.body.conflicts, ["row", "column", "region"]);
+        assert.deepEqual(res.body.conflict, ["row", "column", "region"]);
         done();
       });
   });
@@ -126,7 +126,7 @@ suite("Functional Tests", () => {
       .end((err, res) => {
         assert.equal(res.status, 200);
         assert.equal(res.body.valid, false);
-        assert.deepEqual(res.body.conflicts, ["row", "column", "region"]);
+        assert.deepEqual(res.body.conflict, ["row", "column", "region"]);
         done();
       });
   });
