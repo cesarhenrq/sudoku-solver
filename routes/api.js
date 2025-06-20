@@ -48,7 +48,7 @@ module.exports = function (app) {
     const grid = solver.puzzleToGrid(puzzle);
 
     if (solver.isAlreadyPlaced(grid, mapRowToNumber[row], col - 1, value)) {
-      return res.json({ valid: true, conflicts: [] });
+      return res.json({ valid: true, conflict: [] });
     }
 
     const conflicts = [];
@@ -67,7 +67,7 @@ module.exports = function (app) {
       conflicts.push("region");
     }
 
-    res.json({ valid: conflicts.length === 0, conflicts });
+    res.json({ valid: conflicts.length === 0, conflict: conflicts });
   });
 
   app.route("/api/solve").post((req, res) => {
