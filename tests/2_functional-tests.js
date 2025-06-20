@@ -45,4 +45,22 @@ suite("Functional Tests", () => {
         done();
       });
   });
+
+  test("Solve a puzzle with incorrect length", (done) => {
+    chai
+      .request(server)
+      .post("/api/solve")
+      .send({
+        puzzle:
+          "1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.372.",
+      })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(
+          res.body.error,
+          "Expected puzzle to be 81 characters long"
+        );
+        done();
+      });
+  });
 });
