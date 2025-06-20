@@ -40,32 +40,23 @@ module.exports = function (app) {
       return res.json({ error: "Invalid value" });
     }
 
-    if (mapRowToNumber[row - 1] === undefined) {
+    if (mapRowToNumber[row] === undefined) {
       return res.json({ error: "Invalid coordinate" });
     }
 
     const grid = solver.puzzleToGrid(puzzle);
 
     const conflicts = [];
-    if (
-      !solver.checkRowPlacement(grid, mapRowToNumber[row - 1], col - 1, value)
-    ) {
+    if (!solver.checkRowPlacement(grid, mapRowToNumber[row], col - 1, value)) {
       conflicts.push("row");
     }
 
-    if (
-      !solver.checkColPlacement(grid, mapRowToNumber[row - 1], col - 1, value)
-    ) {
+    if (!solver.checkColPlacement(grid, mapRowToNumber[row], col - 1, value)) {
       conflicts.push("column");
     }
 
     if (
-      !solver.checkRegionPlacement(
-        grid,
-        mapRowToNumber[row - 1],
-        col - 1,
-        value
-      )
+      !solver.checkRegionPlacement(grid, mapRowToNumber[row], col - 1, value)
     ) {
       conflicts.push("region");
     }
