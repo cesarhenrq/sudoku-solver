@@ -91,4 +91,17 @@ suite("Functional Tests", () => {
         done();
       });
   });
+
+  test("Check a puzzle placement with single placement conflict", (done) => {
+    chai
+      .request(server)
+      .post("/api/check")
+      .send({ puzzle: puzzlesAndSolutions[0][0], coordinate: "A2", value: 4 })
+      .end((err, res) => {
+        assert.equal(res.status, 200);
+        assert.equal(res.body.valid, false);
+        assert.deepEqual(res.body.conflicts, ["row"]);
+        done();
+      });
+  });
 });
