@@ -75,12 +75,12 @@ module.exports = function (app) {
 
   app.route("/api/solve").post((req, res) => {
     const { puzzle } = req.body;
-    const { error } = solver.validate(puzzle);
+    const { error, solution } = solver.validate(puzzle);
+
     if (error) {
-      res.json({ error });
-    } else {
-      const solution = solver.solve(puzzle);
-      res.json({ solution });
+      return res.json({ error });
     }
+
+    return res.json({ solution });
   });
 };
