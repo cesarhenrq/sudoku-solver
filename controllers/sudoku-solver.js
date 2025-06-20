@@ -35,9 +35,17 @@ class SudokuSolver {
   }
 
   solve(puzzleString) {
+    const { error } = this.validate(puzzleString);
+    if (error) {
+      return { error };
+    }
     const grid = this.puzzleToGrid(puzzleString);
     const solvedGrid = this.solveGrid(grid);
-    return solvedGrid ? this.gridToString(solvedGrid) : null;
+
+    return {
+      solution: solvedGrid ? this.gridToString(solvedGrid) : null,
+      error: null,
+    };
   }
 
   puzzleToGrid(puzzleString) {
